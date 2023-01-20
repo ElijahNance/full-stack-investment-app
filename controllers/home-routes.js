@@ -4,7 +4,7 @@ const {} = require('../models/');
 // get all posts for homepage
 router.get('/', async (req, res) => {
   try {
-    res.render('homepage');
+    res.render('homepage', { loggedIn: req.session.loggedIn });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -26,6 +26,12 @@ router.get('/signup', (req, res) => {
   }
 
   res.render('signup');
+});
+
+router.get('/purchase', (req, res) => {
+  if (req.session.loggedIn) {
+    res.render('purchase');
+  }
 });
 
 module.exports = router;

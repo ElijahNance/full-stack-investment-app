@@ -11,6 +11,7 @@
     "watch": "nodemon server"
   },
   "dependencies": {
+    "@alpacahq/alpaca-trade-api": "^2.16.1",
     "bcrypt": "^5.1.0",
     "connect-session-sequelize": "^6.1.1",
     "dotenv": "^8.2.0",

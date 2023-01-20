@@ -28,4 +28,10 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+router.get('/purchase', (req, res) => {
+  if (req.session.loggedIn) {
+    res.render('purchase');
+  }
+});
+
 module.exports = router;

@@ -1,10 +1,13 @@
 const router = require('express').Router();
-const {} = require('../models/');
+const {User, Stock} = require('../models/');
 const getData = require('../lib/alpaca');
+const { find } = require('lodash');
 
 // get all posts for homepage
 router.get('/', async (req, res) => {
   try {
+    const userData = await User.findByPk(req.session.userId, {include:Stock});
+    console.log(userData);
     console.log(req.session.loggedIn);
     res.render('homepage', { loggedIn: req.session.loggedIn });
   } catch (err) {
@@ -60,5 +63,6 @@ router.get('/purchase', (req, res) => {
   }
 
 });
+
 
 module.exports = router;

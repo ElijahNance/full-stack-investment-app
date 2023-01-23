@@ -22,6 +22,11 @@ Stock.init(
             type: DataTypes.DECIMAL,
             allowNull: false
         },
+
+        shares:{
+          type: DataTypes.INTEGER,
+            allowNull: false
+        },
         investor_id: {
             type: DataTypes.INTEGER,
             references: {

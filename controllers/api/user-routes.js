@@ -71,4 +71,17 @@ router.post('/logout', (req, res) => {
   }
 });
 
+router.put('/homepage', (req, res) => {
+  User.update({
+    
+  },
+{
+  where:{
+    id: req.session.userId,
+  }
+})
+  res.send('homepage', {stockData: dataset, numShares: req.query.numshares, tradeCost: estimatedTradeCost});
+
+})
+
 module.exports = router;

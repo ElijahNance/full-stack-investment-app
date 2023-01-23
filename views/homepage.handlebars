@@ -1,6 +1,14 @@
-<h1>Welcome</h1>
 
-<div class="card text-center">
+<header class="ms-4">
+  {{#if loggedIn}}
+  <h1 class="font-size-16 display-6">Welcome, {{{req.session.username}}}</h1>
+  {{else}}
+  <h1 class="font-size-16 display-6">A Curated Investing Experience</h1>
+  <h4 class="text-muted font-size-12">Start your portfolio today.</h4>
+  {{/if}}
+</header>
+
+<div class="card text-center m-4">
   <div class="card-header">
     Featured
   </div>
@@ -13,4 +21,34 @@
     2 days ago
   </div>
 </div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Shares</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>{{stockData.symbol}}</td>
+      <td>{{numShares}}</td>
+      <td>{{tradeCost}}</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
 

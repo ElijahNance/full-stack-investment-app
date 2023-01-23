@@ -2,14 +2,32 @@
     <label for="  Select" class="form-label">Select A Stock</label>
     <select id="stocks" class="form-select">
         <option>Select from:</option>
-        <option href="#">Stock 1</option>
-        <option href="#">Stock 2</option>
-        <option href="#">Stock 3</option>
+        <option value="BRK.A">Berkshire Hathaway (Class A)</option>
+        <option value="AAPL">Apple</option>
+        <option value="MSFT">Microsoft</option>
+        <option value="NFLX">Netflix</option>
     </select>
+    <input id="numShares" class="form-control" type="text" placeholder="Number of Shares">
+    <button class="form-control" onclick="calculateStockPurchasePrice()" >Get Stock Quote</button>
 </div>
-
-<input class="form-control" type="text" placeholder="Portfolio value" readonly>
+<div>
+   Display markup here
+   <p>Current Price of {{stockData.symbol}} is ${{stockData.trade.p}}</p>
+   <p>Requested Shares {{numShares}}</p>
+   <p>Estimated Purchase Price ${{tradeCost}}</p>
+</div>
 
 <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
-<script> scr="./server.js"</script>
+<script type="text/javascript" src="../server.js"></script>
+<script type="text/javascript">
+function calculateStockPurchasePrice(){
+    const numSharesInput=document.getElementById("numShares");
+    const stockSymbolInput=document.getElementById("stocks");
+
+    const baseUrl=window.location.href.split("?")[0];
+    const navPath=baseUrl + "?stocksymbol=" + stockSymbolInput.value + "&numshares=" + numSharesInput.value
+    console.log(navPath);
+    window.location.href=navPath;
+}
+</script>

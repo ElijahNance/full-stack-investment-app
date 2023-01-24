@@ -1,20 +1,20 @@
 <div class="mb-3">
-    <label for="  Select" class="form-label">Select A Stock</label>
-    <select id="stocks" class="form-select">
-        <option>Select from:</option>
+    <label for="  Select" class="form-label h4">Browse below:</label>
+    <select id="stocks" class="form-select mb-1">
+        <option>Select a Stock</option>
         <option value="BRK.A">Berkshire Hathaway (Class A)</option>
         <option value="AAPL">Apple</option>
         <option value="MSFT">Microsoft</option>
         <option value="NFLX">Netflix</option>
     </select>
-    <input id="numShares" class="form-control" type="text" placeholder="Number of Shares">
-    <button class="form-control" onclick="calculateStockPurchasePrice()" >Get Stock Quote</button>
+    <input id="numShares" class="form-control mb-1" type="text" placeholder="Number of Shares">
+    <button class="form-control bg-success-subtle" onclick="calculateStockPurchasePrice()" >Get Stock Quote</button>
 </div>
 <div>
    <p>Current Price of {{stockData.symbol}} is ${{stockData.trade.p}}</p>
    <p>Requested Shares {{numShares}}</p>
    <p>Estimated Purchase Price ${{tradeCost}}</p>
-   <button>Confirm Purchase</button>
+   <button class="btn btn-success">Confirm Purchase</button>
 </div>
 
 <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>

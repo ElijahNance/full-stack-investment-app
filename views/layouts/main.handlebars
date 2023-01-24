@@ -21,6 +21,9 @@
             <a class="nav-link btn btn-light" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link btn btn-light" aria-current="page" href="/about">About</a>
+          </li>
+          <li class="nav-item">
             {{#if loggedIn}}
             <button class="nav-link btn btn-light" type="button" id="logout-link">Log Out</button>
             {{else}}
@@ -40,6 +43,19 @@
       {{{body}}}
     </section>
   </main>
+  <footer class="container-fluid bg-success-subtle p-2">
+    <ul class="list-unstyled d-flex flex-row justify-content-between m-2">
+      <li>
+        <p class="text-dark">Phone: 555-555-5555</p>
+      </li>
+      <li>
+        <p class="text-dark">&copy;2023 Centaur Investments</p>
+      </li>
+      <li>
+        <a href="mailto: info@centaurinvestments.com" class="text-decoration-none text-dark text-hover">Email: info@centaurinvestments.com</a>
+      </li>
+    </ul>
+  </footer>
 <script src="/js/logout.js"></script>
 </body>
 

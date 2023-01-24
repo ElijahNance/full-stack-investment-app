@@ -1,13 +1,14 @@
-<header class="ms-4">
+<header class="ms-4 mt-2">
   {{#if loggedIn}}
-  <h1 class="font-size-16 display-6">Welcome, {{{userName}}}</h1>
+  <h1 class="font-size-16 display-6 text-center">Welcome, {{{userName}}}</h1>
   {{else}}
-  <h1 class="font-size-16 display-6">A Curated Investing Experience</h1>
-  <h4 class="text-muted font-size-12">Start your portfolio today.</h4>
+  <h1 class="font-size-16 display-6 text-center">A Curated Investing Experience</h1>
+  <h4 class="text-muted font-size-12 text-center">Start your portfolio today.</h4>
+  <span class="d-flex justify-content-center">&#8964;</span>
   {{/if}}
 </header>
 
-<div class="card text-center m-4">
+<div class="card text-center m-4 justify-content-center">
   <div class="card-header">
     Stock Market
   </div>
@@ -40,5 +41,5 @@
   </tbody>
 </table>
 {{else}}
-<h4 class="ms-4 text-muted font-size-12">Please log in to see your portfolio</h4>
+<h4 class="ms-4 text-muted font-size-12 text-center">Please <a href="/login" class="text-decoration-none">log in</a> to see your portfolio.</h4>
 {{/if}}

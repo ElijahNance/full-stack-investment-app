@@ -7,10 +7,25 @@ const { find } = require('lodash');
 router.get('/', async (req, res) => {
   try {
     const userData = await User.findByPk(req.session.userId, {include:Stock});
-    console.log(userData);
+    
     console.log(req.session.loggedIn);
-    res.render('homepage', { loggedIn: req.session.loggedIn });
+    
+    
+    if(req.session.loggedIn) {
+      console.log("BOOM!");
+      console.log("Here is UserName:", userData.dataValues.username);
+      userData.stocks.forEach((stockData) => {
+        const stock=stockData.dataValues;
+        console.log("Single Data Rec", stock);
+      });
+
+      res.render('homepage', { loggedIn: req.session.loggedIn, stocks: userData.stocks, userName: userData.dataValues.username  });
+    } else {
+      res.render('homepage', { loggedIn: req.session.loggedIn });
+    }
+    
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -34,7 +49,6 @@ router.get('/signup', (req, res) => {
 });
 
 router.get('/purchase', (req, res) => {
-  //ToDo: get query parm for this route that handles stock symbol
   console.log(req.query.stocksymbol);
 
   if (req.session.loggedIn) {
@@ -45,10 +59,8 @@ router.get('/purchase', (req, res) => {
         .then((dataset) => {
           console.log(dataset);
           console.log("Got Stock");
-          //ToDo - Start of code to do the screen logic
           console.log("Stock Price",dataset.trade.p)
           const estimatedTradeCost = req.query.numshares * dataset.trade.p;
-          //ToDo - End of code to do the screen logic
           res.render('purchase',{stockData: dataset, numShares: req.query.numshares, tradeCost: estimatedTradeCost});
         })
         .catch((error) => {console.log(error)})  
@@ -61,6 +73,42 @@ router.get('/purchase', (req, res) => {
     res.render("login");
   }
 
+});
+
+router.get('/confirmation', (req, res) => {
+  
+  if (req.session.loggedIn) {
+    //Capture query string parm values
+    const stockSymbol = req.query.stocksymbol;
+    const stockPrice = req.query.stockprice;
+    const numShares = req.query.numshares;
+    const tradeCost = req.query.tradecost;
+
+    //Create a JSON for the model data
+    const newRecData = {
+      stock_name: stockSymbol,
+      price: stockPrice,
+      shares: numShares,
+      investor_id: req.session.userId
+    };
+
+    console.log(newRecData);
+
+    //Push the trade to the database
+    Stock.create(newRecData)
+      .then(results => {
+        //Successful insert - go to confirmation page with the stock values
+        res.render("confirmation",{stockSymbol: stockSymbol, stockPrice: stockPrice, numShares: numShares, tradeCost: tradeCost});
+      })
+      .catch(error => {
+        //Problem in insert - console log the error and send notice to the user
+        console.log(error);
+        res.render("confirmation",{stockSymbol: "Error", stockPrice: "", numShares: "", tradeCost: ""});
+      })
+
+  } else {
+    res.render("login");
+  }
 });
 
 

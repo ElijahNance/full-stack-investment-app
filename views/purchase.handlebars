@@ -6,6 +6,12 @@
         <option value="AAPL">Apple</option>
         <option value="MSFT">Microsoft</option>
         <option value="NFLX">Netflix</option>
+        <option value="MMM">3M Company</option>
+        <option value="LMT">Lockheed Martin Corporation</option>
+        <option value="LULU">Lululemon Athletica Inc.</option>
+        <option value="LYFT">LYFT, Inc.</option>
+        <option value="VZ">Verizon Communications Inc.</option>
+        <option value="GE">General Electric Company</option>
     </select>
     <input id="numShares" class="form-control mb-1" type="text" placeholder="Number of Shares">
     <button class="form-control bg-success-subtle" onclick="calculateStockPurchasePrice()" >Get Stock Quote</button>
@@ -14,7 +20,7 @@
    <p>Current Price of {{stockData.symbol}} is ${{stockData.trade.p}}</p>
    <p>Requested Shares {{numShares}}</p>
    <p>Estimated Purchase Price ${{tradeCost}}</p>
-   <button class="btn btn-success">Confirm Purchase</button>
+   <button class="btn btn-success" onclick="confirmPurchase()">Confirm Purchase</button>
 </div>
 
 <script type="text/javascript" src="Scripts/jquery-2.1.1.min.js"></script>
@@ -27,6 +33,21 @@ function calculateStockPurchasePrice(){
 
     const baseUrl=window.location.href.split("?")[0];
     const navPath=baseUrl + "?stocksymbol=" + stockSymbolInput.value + "&numshares=" + numSharesInput.value
+    console.log(navPath);
+    window.location.href=navPath;
+}
+</script>
+<script type="text/javascript">
+function confirmPurchase(){
+    const stockSymbol=`{{stockData.symbol}}`;
+    const stockPrice=`{{stockData.trade.p}}`;
+    const numShares=`{{numShares}}`;
+    const tradeCost=`{{tradeCost}}`;
+
+    console.log(stockSymbol, stockPrice, numShares, tradeCost);
+    const appHost = window.location.host;
+    const navPath="http://" + appHost + "/confirmation?stocksymbol=" + stockSymbol + "&stockprice=" + stockPrice + "&numshares=" + numShares + "&tradecost=" + tradeCost;
+    
     console.log(navPath);
     window.location.href=navPath;
 }

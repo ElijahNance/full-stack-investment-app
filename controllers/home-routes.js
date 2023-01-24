@@ -12,13 +12,9 @@ router.get('/', async (req, res) => {
     
     
     if(req.session.loggedIn) {
-      console.log("BOOM!");
-      console.log("Here is UserName:", userData.dataValues.username);
       userData.stocks.forEach((stockData) => {
         const stock=stockData.dataValues;
-        console.log("Single Data Rec", stock);
       });
-
       res.render('homepage', { loggedIn: req.session.loggedIn, stocks: userData.stocks, userName: userData.dataValues.username  });
     } else {
       res.render('homepage', { loggedIn: req.session.loggedIn });
@@ -52,21 +48,16 @@ router.get('/purchase', (req, res) => {
   console.log(req.query.stocksymbol);
 
   if (req.session.loggedIn) {
-    console.log("Getting Stock");
     
     if (req.query.stocksymbol) {
       getData(req.query.stocksymbol)
         .then((dataset) => {
-          console.log(dataset);
-          console.log("Got Stock");
-          console.log("Stock Price",dataset.trade.p)
           const estimatedTradeCost = req.query.numshares * dataset.trade.p;
-          res.render('purchase',{stockData: dataset, numShares: req.query.numshares, tradeCost: estimatedTradeCost});
+          res.render('purchase',{loggedIn: req.session.loggedIn, stockData: dataset, numShares: req.query.numshares, tradeCost: estimatedTradeCost});
         })
         .catch((error) => {console.log(error)})  
     } else {
-      console.log("No Stock Symbol");
-      res.render('purchase');
+      res.render('purchase', {loggedIn: req.session.loggedIn});
     };
 
   } else {
@@ -92,13 +83,11 @@ router.get('/confirmation', (req, res) => {
       investor_id: req.session.userId
     };
 
-    console.log(newRecData);
-
     //Push the trade to the database
     Stock.create(newRecData)
       .then(results => {
         //Successful insert - go to confirmation page with the stock values
-        res.render("confirmation",{stockSymbol: stockSymbol, stockPrice: stockPrice, numShares: numShares, tradeCost: tradeCost});
+        res.render("confirmation",{loggedIn: req.session.loggedIn, stockSymbol: stockSymbol, stockPrice: stockPrice, numShares: numShares, tradeCost: tradeCost});
       })
       .catch(error => {
         //Problem in insert - console log the error and send notice to the user

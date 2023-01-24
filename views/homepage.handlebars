@@ -33,12 +33,12 @@
       <tr>
         <td>{{dataValues.stock_name}}</td>
         <td>{{dataValues.shares}}</td>
-        <td>{{dataValues.price}}</td>
-        <td>{{{calc_purchase_price dataValues.price dataValues.shares}}}</td>
+        <td>${{dataValues.price}}</td>
+        <td>${{{calc_purchase_price dataValues.price dataValues.shares}}}</td>
       </tr>
     {{/each}}
   </tbody>
 </table>
 {{else}}
-<h4>Please log in to see your portfolio</h4>
+<h4 class="ms-4 text-muted font-size-12">Please log in to see your portfolio</h4>
 {{/if}}

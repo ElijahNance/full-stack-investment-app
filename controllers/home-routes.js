@@ -63,8 +63,7 @@ router.get('/purchase', (req, res) => {
           const estimatedTradeCost = req.query.numshares * dataset.trade.p;
           res.render('purchase',{stockData: dataset, numShares: req.query.numshares, tradeCost: estimatedTradeCost});
         })
-        .catch((error) => {console.log(error)})
-
+        .catch((error) => {console.log(error)})  
     } else {
       console.log("No Stock Symbol");
       res.render('purchase');

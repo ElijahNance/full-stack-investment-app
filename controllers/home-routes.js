@@ -26,6 +26,14 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/about', (req, res) => {
+  try {
+    res.render('about', {loggedIn: req.session.loggedIn});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {
     res.redirect('/');
@@ -53,7 +61,7 @@ router.get('/purchase', (req, res) => {
       getData(req.query.stocksymbol)
         .then((dataset) => {
           const estimatedTradeCost = req.query.numshares * dataset.trade.p;
-          res.render('purchase',{loggedIn: req.session.loggedIn, stockData: dataset, numShares: req.query.numshares, tradeCost: estimatedTradeCost});
+          res.render('purchase',{loggedIn: req.session.loggedIn, stockData: dataset, numShares: req.query.numshares, tradeCost: estimatedTradeCost.toFixed(2)});
         })
         .catch((error) => {console.log(error)})  
     } else {

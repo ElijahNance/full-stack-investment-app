@@ -1,6 +1,6 @@
 <header class="ms-4">
   {{#if loggedIn}}
-  <h1 class="font-size-16 display-6">Welcome, {{{req.session.username}}}</h1>
+  <h1 class="font-size-16 display-6">Welcome, {{{userName}}}</h1>
   {{else}}
   <h1 class="font-size-16 display-6">A Curated Investing Experience</h1>
   <h4 class="text-muted font-size-12">Start your portfolio today.</h4>
@@ -21,33 +21,27 @@
   </div>
 </div>
 
+{{#if loggedIn}}
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Stock</th>
       <th scope="col">Shares</th>
-      <th scope="col">Price</th>
+      <th scope="col">Share Price</th>
+      <th scope="col">Purchase Price</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>{{stockData.symbol}}</td>
-      <td>{{numShares}}</td>
-      <td>{{tradeCost}}</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    {{#each stocks}}
+      <tr>
+        <td>{{dataValues.stock_name}}</td>
+        <td>{{dataValues.shares}}</td>
+        <td>{{dataValues.price}}</td>
+        <td>{{{calc_purchase_price dataValues.price dataValues.shares}}}</td>
+      </tr>
+    {{/each}}
   </tbody>
 </table>
-
+{{else}}
+<h4>Please log in to see your portfolio</h4>
+{{/if}}
